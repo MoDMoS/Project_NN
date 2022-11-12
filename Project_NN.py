@@ -16,7 +16,10 @@ model_A = keras.models.load_model('Model_Age.h5')
 
 # Define the prediction function
 def predict(uploaded_file):
-    img = cv2.imread(uploaded_file)
+    img = Image.open(uploaded_file)
+    img = img.save("img.jpg")
+
+    img = cv2.imread('img.jpg')
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     face_cascade = cv2.CascadeClassifier('/haarcascade_frontalface_alt2.xml')
     faces = face_cascade.detectMultiScale(gray, 1.1, 4)
