@@ -47,6 +47,7 @@ def predict(uploaded_file):
 
         return result_G, int(result_A[0][0])
 
+st.set_page_config(page_title="Age & Gender")
 st.title('Age & Gender perdiction')
 st.header('Enter image for perdiction:')
 uploaded_file = st.file_uploader("Choose a file")
