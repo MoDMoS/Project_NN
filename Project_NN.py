@@ -31,26 +31,19 @@ def predict(uploaded_file):
         return "Fail"
     else :
         if uploaded_file is not None:
-            img = Image.open(uploaded_file)
-            img = img.resize((48,48),Image.ANTIALIAS)
-            img = np.float32(img)
-            (R, G, B) = cv2.split(img)
-            G = G.reshape(-1, 48, 48, 1)
-
-            result_G = model_G.predict(G)
-
-            if(round(result_G[0][0])!=0) :
-                result_G = "Female"
-            else :
-                result_G = "Male"
-            
             img = Image.fromarray(faces)
             img = img.resize((48,48),Image.ANTIALIAS)
             img = np.float32(img)
             (R, G, B) = cv2.split(img)
             G = G.reshape(-1, 48, 48, 1)
 
+            result_G = model_G.predict(G)
             result_A = model_A.predict(G)
+
+            if(result_G[0][0]>=0.7) :
+                result_G = "Female"
+            else :
+                result_G = "Male"      
 
         return result_G, int(result_A[0][0])
 
